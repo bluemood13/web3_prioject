@@ -1,0 +1,27 @@
+@import "tailwindcss";
+/* 夜间模式 */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 自定义组合类 */
+@layer components {
+  /* 边框颜色 */
+  .cus-border-color {
+    @apply border-black/10 dark:border-white/10;
+  }
+  /* hover的背景颜色 */
+  .cus-bg-hover-color {
+    @apply hover:bg-black/10;
+    @apply hover:shadow-md;
+    @apply hover:dark:bg-white/10;
+  }
+  /* 文字颜色 */
+  .cus-text-color {
+    /* @apply text-gray-600 dark:text-gray-300; */
+    @apply text-black dark:text-white;
+  }
+
+  /* 文字标签颜色 */
+  .cus-label-color {
+    @apply text-black/60 dark:text-white/60;
+  }
+}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.happain</groupId>
+    <artifactId>xinyong-student-admin</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0</version>
+
+    <modules>
+        <module>admin</module>
+    </modules>
+
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <hutool.version>5.8.0.M3</hutool.version>
+        <springboot.version>3.5.8</springboot.version>
+        <lombok.version>1.18.24</lombok.version>
+        <mybatisplus.version>3.5.15</mybatisplus.version>
+        <mysql.connect.version>8.0.29</mysql.connect.version>
+        <fastjson.version>2.0.16</fastjson.version>
+        <sa-token.verison>1.44.0</sa-token.verison>
+        <web3j.core.version>4.9.7</web3j.core.version>
+        <okhttp.version>4.9.0</okhttp.version>
+        <fisco.version>2.9.1</fisco.version>
+        <fabric.version>2.2.6</fabric.version>
+
+    </properties>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatisplus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--springboot-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <!--fastjson-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!--mysql连接驱动-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connect.version}</version>
+            </dependency>
+            <!--satoken            -->
+            <dependency>
+                <groupId>cn.dev33</groupId>
+                <artifactId>sa-token-spring-boot3-starter</artifactId>
+                <version>${sa-token.verison}</version>
+            </dependency>
+
+            <!--okhttp-->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
+            <!--web3j区块链-->
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>core</artifactId>
+                <version>${web3j.core.version}</version>
+            </dependency>
+            <!--fisco-->
+            <dependency>
+                <groupId>org.fisco-bcos.java-sdk</groupId>
+                <artifactId>fisco-bcos-java-sdk</artifactId>
+                <version>${fisco.version}</version>
+            </dependency>
+            <!-- Fabric Gateway Java SDK -->
+            <dependency>
+                <groupId>org.hyperledger.fabric</groupId>
+                <artifactId>fabric-gateway-java</artifactId>
+                <version>${fabric.version}</version> <!-- 与Fabric网络版本匹配，如2.5.0、2.4.0 -->
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${springboot.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

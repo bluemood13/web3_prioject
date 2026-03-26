@@ -1,0 +1,45 @@
+$themes: (
+  default: (
+    // 背景颜色
+    bg-color: #ffffff,
+    // 文字颜色
+    text-color: #333333,
+    // 边框颜色
+    border-color: #e0e0e0,
+    // 添加图标背景颜色变量
+    icon-bg-color: #000000,
+  ),
+  dark: (
+    bg-color: #121212,
+    text-color: #f5f5f5,
+    border-color: #424242,
+    icon-bg-color: #2a2a2a,
+  ),
+);
+
+// 生成对应的主题变量
+@each $theme-name, $theme-map in $themes {
+  html[hap-theme="#{$theme-name}"] {
+    @each $property, $value in $theme-map {
+      --#{$property}: #{$value};
+    }
+  }
+}
+
+// 背景颜色
+.bg-color {
+  background-color: var(--bg-color);
+}
+// 边框颜色
+.border-color {
+  border-color: var(--border-color);
+}
+// 文本颜色
+.text-color {
+  color: var(--text-color);
+}
+// 添加图标背景颜色
+.icon-bg-color:hover {
+  background-color: var(--icon-bg-color);
+  color: red;
+}

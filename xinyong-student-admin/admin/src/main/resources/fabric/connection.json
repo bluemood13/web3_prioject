@@ -1,0 +1,37 @@
+{
+  "name": "test-network-org1",
+  "version": "1.0.0",
+  "client": {
+    "organization": "Org1",
+    "connection": {
+      "timeout": {
+        "peer": {
+          "endorser": "300"
+        }
+      }
+    }
+  },
+  "organizations": {
+    "Org1": {
+      "mspid": "Org1MSP",
+      "peers": ["peer0.org1.example.com"],
+      "adminPrivateKey": {
+        "path": "classpath:/fabric/priv_sk"
+      },
+      "signedCert": {
+        "path": "classpath:/fabric/Admin@org1.example.com-cert.pem"
+      }
+    }
+  },
+  "peers": {
+    "peer0.org1.example.com": {
+      "url": "grpcs://192.168.2.247:7051",
+      "tlsCACerts": {
+        "path": "classpath:/fabric/ca.crt"
+      },
+      "grpcOptions": {
+        "ssl-target-name-override": "peer0.org1.example.com"
+      }
+    }
+  }
+}

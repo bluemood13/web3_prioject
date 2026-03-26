@@ -1,0 +1,128 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /
+    # 解决拦截器中文乱码问题
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+spring:
+  application:
+    name: admin
+  main:
+    allow-circular-references: true # 允许循环依赖
+  # 数据库连接信息
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/xinyong?autoReconnect=true&useServerPreparedStmts=false&rewriteBatchedStatements=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  # 文件上传大小配置
+  servlet:
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 30MB
+  # json序列化相关配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+#mybatis plus配置
+mybatis-plus:
+  configuration:
+    # 是否驼峰命名
+    map-underscore-to-camel-case: true
+    # 默认的枚举类
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+    # 完全嵌套映射
+    auto-mapping-behavior: full
+    # 自动映射时未知列或未知属性处理策略 以错误形式展示
+    auto-mapping-unknown-column-behavior: none
+  global-config:
+    # 开启sqlrunner
+    enable-sql-runner: true
+    db-config:
+      id-type: assign_id
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+      logic-delete-field: delete-flag
+  mapper-locations: [ "classpath*:/mapper/**/*.xml" ]
+  # 检查xml文件
+  check-config-location: false
+  # 复用PreparedStatement
+  executor-type: reuse
+
+#  日志配置
+logging:
+  level:
+    root: info  # 根日志级别设为info，会输出info及更高级别的日志（包括error）
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"  # 控制台日志格式
+
+#sa-token配置
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: token
+  # token有效期，单位s 7天
+  timeout: 6048000
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: true
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
+
+
+
+qkl:
+  value: 'fisco-remote'
+
+# 本地区块链地址
+ganache:
+  # 地址
+  host: http://localhost:7545
+  # 账户私钥
+  primaryKey: '0x791a32345665c8f732f371750e954a2ded2289f596333112ede85d96c6ca0de6'
+  # 下标
+  index: 0
+  # 合约地址
+  contractAddress: 'xxx'
+
+
+
+# 服务器fisco
+fisco-remote:
+  peers: 14.103.246.6:20200
+  groupId: 1
+  certPath: fisco/conf/remote
+
+#本地fisco
+fisco-local:
+  peers: 192.168.2.100:20200
+  groupId: 1
+  certPath: fisco/conf/local
+
+
+
+fabric:
+  walletDirectory: wallet
+  # 网络配置文件路径
+  networkConfigPath: connection.json
+  # 用户证书路径
+  certificatePath: crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/signcerts/User1@org1.example.com-cert.pem
+  # 用户私钥路径
+  privateKeyPath: crypto-config/peerOrganizations/org1.example.com/users/User1@org1.example.com/msp/keystore/priv_sk
+  # 访问的组织名
+  mspid: Org1MSP
+  # 用户名
+  username: user1
+  # 通道名字
+  channelName: mychannel
+  # 链码名字
+  contractName: mycc

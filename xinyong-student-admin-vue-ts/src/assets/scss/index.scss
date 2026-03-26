@@ -1,0 +1,74 @@
+// 去除全局元素的黑框
+* {
+  outline: none !important;
+}
+
+/* 全局变量 */
+:root {
+  --el-header-text-color: #000000;
+}
+
+// 主题的样式
+.theme-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  margin: 14px 0;
+  span {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+}
+// 让el-tag自动换行
+.el-tag__content {
+  white-space: normal;
+  word-wrap: break-word;
+}
+.el-tag {
+  height: auto;
+  padding: 5px;
+  max-width: 200px;
+  white-space: normal;
+  word-break: break-all;
+}
+
+//
+.notification-wide {
+  width: 600px; /* 调整为合适的宽度，默认约 300px */
+  word-wrap: break-word; /* 兼容旧浏览器 */
+  overflow-wrap: break-word; /* 现代浏览器推荐 */
+  /* 可选：避免多余空格导致的意外换行 */
+  white-space: normal;
+}
+.notification-wide .el-notification__content p {
+  margin: 8px 0; /* 段落间距 */
+  line-height: 1.6; /* 行高，增强可读性 */
+}
+
+// 使 el-container 占满整个视口高度
+.el-container {
+  width: 100%;
+  height: 100vh;
+}
+
+// 侧边栏样式
+.el-aside {
+  height: 100%;
+  width: auto;
+  .aside-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    height: calc(100% - 55px);
+    .el-scrollbar {
+      height: calc(100% - 55px);
+      .el-menu {
+        width: 100%;
+        overflow-x: hidden;
+        border-right: none;
+      }
+    }
+  }
+}
