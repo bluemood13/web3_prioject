@@ -81,7 +81,7 @@ sa-token:
 
 
 qkl:
-  value: 'fisco-remote'
+  value: 'fisco-local'
 
 # 本地区块链地址
 ganache:
@@ -102,9 +102,9 @@ fisco-remote:
   groupId: 1
   certPath: fisco/conf/remote
 
-#本地fisco
+#本地fisco (VMware CentOS 192.168.135.130)
 fisco-local:
-  peers: 192.168.2.100:20200
+  peers: 192.168.135.130:20200
   groupId: 1
   certPath: fisco/conf/local
 

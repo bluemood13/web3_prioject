@@ -1,19 +1,19 @@
 $themes: (
   default: (
     // 背景颜色
-    bg-color: #ffffff,
+    bg-color: #f8fafc,
     // 文字颜色
-    text-color: #333333,
+    text-color: #1e293b,
     // 边框颜色
-    border-color: #e0e0e0,
+    border-color: #e2e8f0,
     // 添加图标背景颜色变量
-    icon-bg-color: #000000,
+    icon-bg-color: #e2e8f0,
   ),
   dark: (
-    bg-color: #121212,
-    text-color: #f5f5f5,
-    border-color: #424242,
-    icon-bg-color: #2a2a2a,
+    bg-color: #0f172a,
+    text-color: #f1f5f9,
+    border-color: #334155,
+    icon-bg-color: #2d3a4f,
   ),
 );
 
@@ -41,5 +41,5 @@ $themes: (
 // 添加图标背景颜色
 .icon-bg-color:hover {
   background-color: var(--icon-bg-color);
-  color: red;
+  color: var(--el-color-primary);
 }

@@ -13,18 +13,19 @@ import org.fisco.bcos.sdk.transaction.codec.decode.TransactionDecoderService;
 import org.fisco.bcos.sdk.transaction.model.dto.TransactionResponse;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 
 import javax.annotation.Resource;
 import java.math.BigInteger;
 
 @Service
-@ConditionalOnBean(Client.class)
+
 public class FiscoService implements LinkInter {
 
-
-    @Resource
-    Client client;
-
+    @Lazy
+    @Autowired(required = false)
+    private Client client;
 
     /**
      * 获取钱包地址

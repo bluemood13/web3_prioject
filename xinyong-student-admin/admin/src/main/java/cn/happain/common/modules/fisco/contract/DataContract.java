@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 @Service
-@ConditionalOnBean(Client.class)
 public class DataContract extends BaseFiscoContract {
 
   public DataContract() {
@@ -21,6 +20,7 @@ public class DataContract extends BaseFiscoContract {
 
 
   public TransactionResponse setData(String message) throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendTransactionAndGetResponse(
             this.contractAddress,
             this.ABI,
@@ -28,17 +28,20 @@ public class DataContract extends BaseFiscoContract {
             ListUtil.of(message)
     );
   }
+
   public CallResponse getData() throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendCall(
             this.client.getCryptoSuite().getCryptoKeyPair().getAddress(),
             this.contractAddress,
             this.ABI,
             "getData",
-            Arrays.asList() // 无参数
+            Arrays.asList()
     );
   }
 
   public CallResponse deleteData() throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendCall(this.client.getCryptoSuite().getCryptoKeyPair().getAddress(), this.contractAddress, this.ABI, "deleteData", Arrays.asList());
   }
 

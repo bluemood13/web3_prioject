@@ -2,6 +2,15 @@
 /* 夜间模式 */
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+}
+
+@theme {
+  --font-sans: "DM Sans Variable", system-ui, -apple-system, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
 /* 自定义组合类 */
 @layer components {
   /* 边框颜色 */

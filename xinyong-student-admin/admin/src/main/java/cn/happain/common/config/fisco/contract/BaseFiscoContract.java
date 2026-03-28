@@ -14,8 +14,10 @@ import org.fisco.bcos.sdk.transaction.manager.AssembleTransactionProcessor;
 import org.fisco.bcos.sdk.transaction.manager.TransactionProcessorFactory;
 import org.fisco.bcos.sdk.transaction.model.dto.CallResponse;
 import org.fisco.bcos.sdk.transaction.model.dto.TransactionResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -29,11 +31,11 @@ import java.util.Arrays;
 @Component
 @Data
 @NoArgsConstructor
-@ConditionalOnBean(Client.class) // 仅当 Client 存在时，子类才会生效
 public abstract class BaseFiscoContract {
 
     // ======================== 1. 通用属性（子类共享）========================
-    @Resource
+    @Lazy
+    @Autowired(required = false)
     public Client client; // 子类可直接使用，protected 修饰
 
     @Value("${qkl.value}")
@@ -65,17 +67,31 @@ public abstract class BaseFiscoContract {
 
     // ======================== 2. 通用初始化逻辑（子类无需重写）========================
     /**
-     * 初始化流程：创建交易处理器 → 加载 ABI/BIN
-     * 子类若需扩展初始化逻辑，可重写 initExtra() 方法
+     * 启动时只加载本地 ABI/BIN 文件，不触发任何网络连接。
+     * 区块链连接推迟到第一次实际调用时（见 ensureTxProcessor）。
      */
     @PostConstruct
-    public final void init() throws Exception {
-        // 3. 子类扩展初始化（可选，默认空实现）
-        initExtra();
-        // 1. 创建交易处理器（通用逻辑，所有合约共用）
-        createTxProcessor();
-        // 2. 加载合约 ABI 和 BIN（需子类指定 contractKey，通过抽象方法约束）
-        loadContractAbiAndBin();
+    public final void init() {
+        try {
+            initExtra();
+            loadContractAbiAndBin();
+        } catch (Exception e) {
+            System.err.println("合约 [" + contractKey + "] 本地配置加载失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 懒连接：首次调用合约方法时才真正连接节点、创建交易处理器。
+     * 节点不可达时抛出 RuntimeException，由上层业务捕获并返回友好提示。
+     */
+    protected synchronized void ensureTxProcessor() throws Exception {
+        if (this.txProcessor != null) return;
+        try {
+            createTxProcessor();
+        } catch (Exception e) {
+            this.txProcessor = null;
+            throw new RuntimeException("区块链节点不可用，请检查节点是否已启动: " + e.getMessage(), e);
+        }
     }
 
     /**
@@ -135,14 +151,18 @@ public abstract class BaseFiscoContract {
     }
 
 
+
+
+
+    // ======================== 4. 合约执行（懒连接保护）========================
     public TransactionResponse setJsonStr(String jsonStr) throws Exception {
+        ensureTxProcessor();
         return this.txProcessor.sendTransactionAndGetResponse(this.contractAddress, this.ABI, "setJsonStr", ListUtil.of(jsonStr));
     }
 
     public CallResponse getJsonStr() throws Exception {
+        ensureTxProcessor();
         return this.txProcessor.sendCall(this.client.getCryptoSuite().getCryptoKeyPair().getAddress(), this.contractAddress, this.ABI, "getJsonStr", Arrays.asList());
     }
-
-
-
 }
+

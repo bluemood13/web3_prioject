@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.Arrays;
 
 @Service
-@ConditionalOnBean(Client.class)
 public class JiaoyiContract extends BaseFiscoContract {
 
   public JiaoyiContract() {
@@ -19,29 +18,18 @@ public class JiaoyiContract extends BaseFiscoContract {
   }
 
 
-  public TransactionResponse setJiaoyi(
-            Double num
-            ,
-            String types
-            ,
-            Double price
-            
-    ) throws Exception {
+  public TransactionResponse setJiaoyi(Double num, String types, Double price) throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendTransactionAndGetResponse(
             this.contractAddress,
             this.ABI,
             "setJiaoyi",
-            ListUtil.of(
-                            num
-            ,
-                types
-            ,
-                price
-            
-    )
+            ListUtil.of(num, types, price)
     );
   }
+
   public CallResponse getJiaoyi() throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendCall(
             this.client.getCryptoSuite().getCryptoKeyPair().getAddress(),
             this.contractAddress,
@@ -52,6 +40,7 @@ public class JiaoyiContract extends BaseFiscoContract {
   }
 
   public CallResponse deleteJiaoyi() throws Exception {
+    ensureTxProcessor();
     return this.txProcessor.sendCall(this.client.getCryptoSuite().getCryptoKeyPair().getAddress(), this.contractAddress, this.ABI, "deleteJiaoyi", Arrays.asList());
   }
 

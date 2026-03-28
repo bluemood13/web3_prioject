@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.springframework.context.annotation.Lazy;
+
 @Configuration
 @Slf4j
 public class FiscoConfig {
@@ -33,7 +35,7 @@ public class FiscoConfig {
     FiscoLocalConfig fiscoLocalConfig;
 
 
-
+    @Lazy // 【新增】让本地节点延迟连接
     // TODO: 加载fisco本地的bean
     @Bean
     @ConditionalOnProperty(name = "qkl.value", havingValue = "fisco-local")
@@ -56,6 +58,7 @@ public class FiscoConfig {
     }
 
 
+    @Lazy
     // TODO: 加载fisco远程的bean
     @Bean
     @ConditionalOnProperty(name = "qkl.value", havingValue = "fisco-remote")

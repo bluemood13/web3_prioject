@@ -11,6 +11,12 @@ import { cusComList } from "@/cus-components";
 import "element-plus/theme-chalk/dark/css-vars.css";
 // 配置tailwindcss
 import "@/assets/css/tailwind.css";
+// 全局主题（字体、圆角、阴影、布局层次）
+import "@/assets/css/app-theme.css";
+// 应用级主题（字体、圆角、阴影、主区域背景）
+import "@/assets/css/app-theme.css";
+// 全局主题（字体、圆角、阴影、布局质感）
+import "@/assets/css/app-theme.css";
 // 加载element plus的图标
 import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 // 引入动画库

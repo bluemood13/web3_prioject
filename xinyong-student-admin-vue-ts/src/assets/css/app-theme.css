@@ -1,0 +1,210 @@
+@import "@fontsource-variable/dm-sans/index.css";
+
+/* ─── Design Tokens ─── */
+:root {
+  --app-font-sans: "DM Sans Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --el-font-family: var(--app-font-sans);
+
+  /* radius */
+  --el-border-radius-base: 12px;
+  --el-border-radius-small: 8px;
+  --el-border-radius-round: 24px;
+
+  /* shadows — more pronounced */
+  --el-box-shadow: 0 4px 16px -2px rgb(15 23 42 / 0.10),
+    0 2px 6px -2px rgb(15 23 42 / 0.07);
+  --el-box-shadow-light: 0 2px 8px -1px rgb(15 23 42 / 0.08),
+    0 1px 3px -1px rgb(15 23 42 / 0.05);
+  --el-box-shadow-lighter: 0 1px 3px rgb(15 23 42 / 0.04);
+
+  /* page bg */
+  --el-bg-color-page: #f0f4ff;
+  --el-fill-color-blank: #ffffff;
+  --el-fill-color-light: #f8faff;
+
+  --el-dialog-border-radius: 16px;
+
+  /* custom glow accent */
+  --app-primary-glow: color-mix(in srgb, var(--el-color-primary) 25%, transparent);
+  --app-sidebar-width-expanded: 220px;
+}
+
+html.dark {
+  --el-bg-color-page: #080e1f;
+  --el-fill-color-blank: #111827;
+  --el-fill-color-light: #1e2a3d;
+  --el-box-shadow: 0 8px 24px -4px rgb(0 0 0 / 0.50),
+    0 4px 8px -4px rgb(0 0 0 / 0.35);
+  --el-box-shadow-light: 0 4px 12px 0 rgb(0 0 0 / 0.40);
+  --app-primary-glow: color-mix(in srgb, var(--el-color-primary) 18%, transparent);
+}
+
+body {
+  font-family: var(--app-font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+/* ─── Main content area ─── */
+.el-main {
+  --el-main-padding: 20px 24px;
+  background: linear-gradient(
+    160deg,
+    var(--el-bg-color-page) 0%,
+    color-mix(in srgb, var(--el-bg-color-page) 82%, var(--el-color-primary) 18%) 100%
+  );
+  min-height: 0;
+}
+
+html.dark .el-main {
+  background: linear-gradient(
+    160deg,
+    var(--el-bg-color-page) 0%,
+    color-mix(in srgb, var(--el-bg-color-page) 88%, var(--el-color-primary) 12%) 100%
+  );
+}
+
+/* ─── Header: frosted glass ─── */
+.el-header {
+  background: color-mix(in srgb, var(--el-bg-color) 80%, transparent) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid color-mix(in srgb, var(--el-border-color) 50%, transparent) !important;
+}
+
+html.dark .el-header {
+  background: color-mix(in srgb, var(--el-fill-color-blank) 70%, transparent) !important;
+  border-bottom-color: rgba(255,255,255,0.06) !important;
+}
+
+/* ─── Sidebar menu ─── */
+.el-aside .el-menu {
+  --el-menu-item-height: 42px;
+  border-right: none;
+  background-color: transparent !important;
+}
+
+.el-aside .el-menu:not(.el-menu--collapse) .el-menu-item,
+.el-aside .el-menu:not(.el-menu--collapse) .el-sub-menu__title {
+  border-radius: 10px;
+  margin: 3px 8px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.el-aside .el-menu:not(.el-menu--collapse) .el-menu-item.is-active {
+  font-weight: 700;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--el-color-primary) 18%, transparent),
+    color-mix(in srgb, var(--el-color-primary) 8%, transparent)
+  ) !important;
+  box-shadow: inset 0 0 0 1px var(--app-primary-glow);
+}
+
+.el-aside .el-menu:not(.el-menu--collapse) .el-menu-item:hover:not(.is-active),
+.el-aside .el-menu:not(.el-menu--collapse) .el-sub-menu__title:hover {
+  background: color-mix(in srgb, var(--el-color-primary) 8%, transparent) !important;
+}
+
+/* ─── Cards ─── */
+.el-card {
+  border: 1px solid color-mix(in srgb, var(--el-border-color) 55%, transparent);
+  box-shadow: var(--el-box-shadow-light);
+  border-radius: var(--el-border-radius-base);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.el-card.is-hover-shadow:hover {
+  box-shadow: var(--el-box-shadow);
+  transform: translateY(-2px);
+}
+
+html.dark .el-card {
+  border-color: rgba(255,255,255,0.07);
+}
+
+/* ─── Table ─── */
+.el-table {
+  --el-table-border-color: color-mix(
+    in srgb,
+    var(--el-border-color) 55%,
+    transparent
+  );
+  border-radius: var(--el-border-radius-base);
+  overflow: hidden;
+  box-shadow: var(--el-box-shadow-light);
+}
+
+.el-table th.el-table__cell {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  background: color-mix(in srgb, var(--el-fill-color-light) 100%, transparent) !important;
+}
+
+.el-table__row {
+  transition: background 0.15s;
+}
+
+/* ─── Pagination ─── */
+.el-pagination {
+  font-weight: 600;
+}
+
+/* ─── Buttons ─── */
+.el-button {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.el-button:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px -2px var(--app-primary-glow);
+}
+
+.el-button:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* ─── NProgress ─── */
+#nprogress .bar {
+  background: var(--el-color-primary) !important;
+  height: 3px;
+}
+#nprogress .peg {
+  box-shadow: 0 0 14px var(--el-color-primary),
+    0 0 6px var(--el-color-primary) !important;
+}
+
+/* ─── Tab list ─── */
+.tabs-box .el-tabs__item:not(.is-active) {
+  color: var(--el-text-color-secondary) !important;
+}
+
+/* ─── Dialog ─── */
+.el-dialog {
+  box-shadow: 0 25px 60px -12px rgb(0 0 0 / 0.3) !important;
+}
+
+html.dark .el-dialog {
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* ─── Input ─── */
+.el-input__wrapper,
+.el-textarea__inner {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.el-input__wrapper:hover,
+.el-textarea__inner:hover {
+  box-shadow: 0 0 0 1px var(--el-color-primary-light-5) inset !important;
+}
